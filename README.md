@@ -38,7 +38,7 @@ Computational whole-brain models offer a principled approach to bridging this ga
 
 | Data | Description | Source |
 |------|-------------|--------|
-| **Empirical fMRI** | Resting-state BOLD from 15 healthy controls (within-subjects, DMT vs. placebo), 840 timepoints, TR = 2s, 28-minute recordings | [Timmermann et al., 2023](https://doi.org/10.1073/pnas.2218949120) — [GitHub](https://github.com/timmer500/DMT_Imaging) |
+| **Empirical fMRI** | Resting-state BOLD from 20 healthy volunteers (within-subjects, DMT vs. placebo), TR = 2s, 840-timepoint (28 min) recordings; the first 180 timepoints (6 min post-administration) were analysed | [Timmermann et al., 2023](https://doi.org/10.1073/pnas.2218949120) — [GitHub](https://github.com/timmer500/DMT_Imaging) |
 | **Structural Connectivity** | Population-averaged DTI tractography from the Human Connectome Project (HCP) | [ENIGMA Toolbox](https://enigma-toolbox.readthedocs.io/) — [Lariviere et al., 2021](https://doi.org/10.1038/s41592-021-01186-4) |
 | **Brain Parcellation** | Schaefer 2018 atlas, 100 cortical parcels mapped to 7 Yeo functional networks | [Schaefer et al., 2018](https://doi.org/10.1093/cercor/bhx179) |
 
@@ -65,7 +65,7 @@ Empirical BOLD ─────────────────────�
   ├─→ Hilbert transform → instantaneous phase         │
   ├─→ Phase-coherence dFC matrices                    ├──→ Statistical comparison
   ├─→ Leading eigenvector extraction (LEIDA)          │    (Mann-Whitney U,
-  ├─→ FCD matrices (eigenvector cosine similarity)    │     Wilcoxon, KS test)
+  ├─→ FCD matrices (eigenvector cosine similarity)    │     Wilcoxon)
   └─→ K-means clustering → FC brain states            │
                                                       │
 Kuramoto Model ──→ Simulated BOLD ──→ Same pipeline ──┘
@@ -76,7 +76,7 @@ Kuramoto Model ──→ Simulated BOLD ──→ Same pipeline ──┘
 3. **Leading Eigenvector Extraction:** Dominant eigenvector of each instantaneous dFC matrix captures the primary connectivity pattern at that moment
 4. **FCD Matrices:** Time × time matrices quantifying the similarity between FC patterns across the recording, revealing temporal dynamics and state switching
 5. **LEIDA Brain States:** K-means clustering of leading eigenvectors to identify recurring functional connectivity states and their condition-specific probabilities
-6. **Model Validation:** Kolmogorov-Smirnov tests comparing FCD distributions between empirical and simulated data
+6. **Model Validation:** FCD distributions compared between empirical and simulated data (distributional comparison was done visually; no KS test is implemented in the committed notebook)
 
 ---
 
@@ -122,7 +122,6 @@ While the Kuramoto simulation captured macroscopic FCD dynamics, it was **unable
 |--------|-------------|
 | Mann-Whitney U test | Non-parametric between-group comparisons (DMT vs. PCB) |
 | Wilcoxon signed-rank test | Paired within-subject comparisons |
-| Kolmogorov-Smirnov test | Distribution comparison of FCD matrices |
 | Fisher Z-transform | Normalisation of correlation coefficients |
 | Silhouette analysis | K-means cluster validation |
 | Calinski-Harabasz & Davies-Bouldin indices | Additional clustering quality metrics |
